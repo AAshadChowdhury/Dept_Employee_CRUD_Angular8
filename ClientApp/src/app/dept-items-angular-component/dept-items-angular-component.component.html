@@ -1,0 +1,155 @@
+<style>
+  .form-group label {
+    justify-content: left !important;
+  }
+</style>
+
+<div class="row justify-content-center align-items-center ml-2">
+
+
+  <form [formGroup]="angForm" novalidate>
+
+    <h1>
+      Items CRUD in Angular6!
+    </h1>
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Department Table</h2>
+        <div class="form-group">
+          <label for="deptid">Dept Id</label>
+          <input id="deptid" name="deptid" #deptid [value]=deptid2 class="form-control" (input)="deptchange()" [(ngModel)]="deptid2" formControlName="deptid" placeholder="Dept Id" />
+          <div *ngIf="angForm.controls['deptid'].invalid && (angForm.controls['deptid'].dirty || angForm.controls['deptid'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['deptid'].errors.required">
+              deptid is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="deptname">Dept Name</label>
+          <input id="deptname" name="deptname" #deptname [value]=deptname2 class="form-control" [(ngModel)]="deptname2" formControlName="deptname" />
+          <div *ngIf="angForm.controls['deptname'].invalid && (angForm.controls['deptname'].dirty || angForm.controls['deptname'].touched)" class="alert-danger">
+            <div *ngIf="angForm.controls['deptname'].errors.required">deptname is required.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input id="location" name="Location" #location [value]=location2 class="form-control" [(ngModel)]="location2" formControlName="location" />
+          <div *ngIf="angForm.controls['location'].invalid && (angForm.controls['location'].dirty || angForm.controls['location'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['location'].errors.required">
+              location is required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="itemcode">ItemCode:</label>
+          <input name="itemcode" id="itemcode" #itemcode [value]=itemcode2 class="form-control col-md-8" [(ngModel)]="itemcode2" formControlName="itemcode" />
+
+          <div *ngIf="angForm.controls['itemcode'].invalid && (angForm.controls['itemcode'].dirty || angForm.controls['itemcode'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['itemcode'].errors.required">
+              itemcode is required.
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="itemname">Item Name:</label>
+          <input name="itemname" id="itemname" #itemname [value]=itemname2 class="form-control col-md-8" [(ngModel)]="itemname2" formControlName="itemname" />
+          <div *ngIf="angForm.controls['itemname'].invalid && (angForm.controls['itemname'].dirty || angForm.controls['itemname'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['itemname'].errors.required">
+              itemname is required.
+            </div>
+          </div>
+        </div>
+        <!--<div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="deptid">Dept Id:</label>
+          <input name="deptid" id="deptid" #deptid [value]=deptid2 class="form-control col-md-8" (input)="deptchange()" [(ngModel)]="deptid2" />
+        </div>-->
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="cost">Cost:</label>
+          <input name="cost" id="cost" #cost [value]=cost2 class="form-control col-md-8" [(ngModel)]="cost2" formControlName="cost" />
+          <div *ngIf="angForm.controls['cost'].invalid && (angForm.controls['cost'].dirty || angForm.controls['cost'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['cost'].errors.required">
+              cost is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="rate">Sell:</label>
+          <input name="rate" id="rate" #rate [value]=rate2 class="form-control col-md-8" [(ngModel)]="rate2"
+                 formControlName="rate"/>
+          <div *ngIf="angForm.controls['rate'].invalid && (angForm.controls['rate'].dirty || angForm.controls['rate'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['rate'].errors.required">
+              rate is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="date">Date:</label>
+          <input type="date" name="date" id="date" #date [value]=date2 class="form-control col-md-8" [(ngModel)]="date2" formControlName="date" />
+          <div *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['date'].errors.required">
+              date is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-inline">
+          <label class="image-upload-container btn btn-bwm col-md-4 text-left">
+            <span>Select Image</span>
+          </label>
+          <input type="file" name="picture" id="picture" (change)="onFileChanged($event)" class="form-control col-md-8" formControlName="picture" />
+          <br />
+          <div *ngIf="angForm.controls['picture'].invalid && (angForm.controls['picture'].dirty || angForm.controls['picture'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['picture'].errors.required">
+              picture is required.
+            </div>
+          </div>
+        </div>
+
+
+        <button type="submit" (click)="addItems(itemcode.value, itemname.value,deptid.value,cost.value,rate.value,date.value,'')" class="btn-primary btn mr-3">Add</button>
+        <button type="submit" (click)="updateItems(itemcode, itemname,deptid,cost,rate,date)" class="btn btn-info mr-3">Update</button>
+        <button type="button" (click)="deleteItems()" class="btn btn-success mr-3">Delete</button>
+      </div>
+    </div>
+
+  </form>
+
+
+
+</div>
+
+
+<div class="row">
+  <table class="table table-condensed">
+    <tr>
+      <th>SL No</th>
+      <th>Item Code</th>
+      <th>Item Name</th>
+      <th>Cost</th>
+      <th>Sell</th>
+      <th>Date</th>
+      <th>Picture</th>
+
+    </tr>
+    <tr *ngFor="let item of items let i=index" (click)="show(i,item.itemcode,item.itemname, item.deptid,item.cost,item.rate,item.date,item.picture)">
+      <td>
+        {{i+1}}
+      </td>
+      <td> {{item.itemcode}}</td>
+      <td> {{item.itemname}}</td>
+      <td> {{item.cost}}</td>
+      <td> {{item.rate}}</td>
+      <td> {{item.date}}</td>
+      <td><img width="100" src="/uploads/{{item.picture}}" /></td>
+
+    </tr>
+  </table>
+  <button type="button" (click)="saveAll()" class="btn-primary btn mr-3">Save</button>
+
+  <button type="button" (click)="deleteAll()" class="btn btn-success mr-3">Drop</button>
+</div>

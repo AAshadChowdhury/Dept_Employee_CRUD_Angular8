@@ -1,0 +1,29 @@
+<body>
+  <div class="float-right">
+    <!--{{AuthCheck}}-->
+    <div *ngIf="!AuthCheck">
+      <button (click)="go()" class="btn btn-link">Login</button>
+      | <a [routerLink]='"./login"'>Login</a>
+    </div>
+    <div *ngIf="AuthCheck">
+      <button (click)="go2()" class="btn btn-link">Logout</button>
+    </div>
+  </div>
+  <h1 myRed>Hello Round 47</h1>
+  <app-nav-menu></app-nav-menu>
+  <!--<app-img-upload-component></app-img-upload-component>-->
+  <div class="container-fluid">
+    <router-outlet></router-outlet>
+    <!--<app-reactive-form-example></app-reactive-form-example>-->
+    <!--<app-template-form-example></app-template-form-example>-->
+    <!--<div class="row">-->
+    <!--<div col-4>
+      <app-department-component></app-department-component>
+    </div>
+    <div col-8>
+      <app-dept-employees-component></app-dept-employees-component>-->
+     <!--<app-dept-items-component></app-dept-items-component>-->
+    <!--</div>-->
+  </div>
+  <!--</div>-->
+</body>

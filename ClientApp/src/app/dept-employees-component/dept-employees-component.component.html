@@ -1,0 +1,232 @@
+<!--<p>dept-employees-component works!</p>
+<style>
+  .form-group label {
+    justify-content: left !important;
+  }
+</style>-->
+
+<div class="row">
+
+
+  <form [formGroup]="angForm" novalidate>
+
+    <h1>
+      Employees CRUD in Angular6!
+    </h1>
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Department Table</h2>
+        <div class="form-group">
+          <label for="deptid">Dept Id</label>
+          <input id="deptid" name="deptid" #deptid [value]=deptid2 class="form-control" (input)="deptchange()" [(ngModel)]="deptid2" formControlName="deptid" placeholder="Dept Id" />
+          <div *ngIf="angForm.controls['deptid'].invalid && (angForm.controls['deptid'].dirty || angForm.controls['deptid'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['deptid'].errors.required">
+              deptid is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="deptname">Dept Name</label>
+          <input id="deptname" name="deptname" #deptname [value]=deptname2 class="form-control" [(ngModel)]="deptname2" formControlName="deptname" />
+          <div *ngIf="angForm.controls['deptname'].invalid && (angForm.controls['deptname'].dirty || angForm.controls['deptname'].touched)" class="alert-danger">
+            <div *ngIf="angForm.controls['deptname'].errors.required">deptname is required.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input id="location" name="Location" #location [value]=location2 class="form-control" [(ngModel)]="location2" formControlName="location" />
+          <div *ngIf="angForm.controls['location'].invalid && (angForm.controls['location'].dirty || angForm.controls['location'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['location'].errors.required">
+              location is required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="employeeid">employee id:</label>
+          <input name="employeeid" id="employeeid" #employeeid [value]=employeeid2 class="form-control col-md-8" (input)="employeeChange()" [(ngModel)]="employeeid2" formControlName="employeeid" />
+
+          <div *ngIf="angForm.controls['employeeid'].invalid && (angForm.controls['employeeid'].dirty || angForm.controls['employeeid'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['employeeid'].errors.required">
+              employeeid is required.
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="employeeNo">employee No:</label>
+          <input name="employeeNo" id="employeeNo" #employeeNo [value]=employeeNo2 class="form-control col-md-8" [(ngModel)]="employeeNo2" formControlName="employeeNo" />
+          <div *ngIf="angForm.controls['employeeNo'].invalid && (angForm.controls['employeeNo'].dirty || angForm.controls['employeeNo'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['employeeNo'].errors.required">
+              employeeNo is required.
+            </div>
+          </div>
+        </div>
+        <!--<div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="deptid">Dept Id:</label>
+          <input name="deptid" id="deptid" #deptid [value]=deptid2 class="form-control col-md-8" (input)="deptchange()" [(ngModel)]="deptid2" />
+        </div>-->
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="name"> Employee name:</label>
+          <input name="name" id="name" #name [value]=name2 class="form-control col-md-8" [(ngModel)]="name2" formControlName="name" />
+          <div *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['name'].errors.required">
+              name is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="permanentsectionid">permanentsectionid:</label>
+          <select name="permanentsectionid" id="permanentsectionid" #permanentsectionid [value]=permanentsectionid2 class="form-control col-md-8" [(ngModel)]="permanentsectionid2"
+                 formControlName="permanentsectionid" >
+            <option *ngFor="let a of ActiveSections">{{a.sectionid}}</option>
+          </select>
+          <div *ngIf="angForm.controls['permanentsectionid'].invalid && (angForm.controls['permanentsectionid'].dirty || angForm.controls['permanentsectionid'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['permanentsectionid'].errors.required">
+              permanentsectionid is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="activesection">Active section:</label>
+          <input name="activesection" id="activesection" #activesection [value]=activesection2 class="form-control col-md-8" [(ngModel)]="activesection2"
+                 formControlName="activesection" />
+          <div *ngIf="angForm.controls['activesection'].invalid && (angForm.controls['activesection'].dirty || angForm.controls['activesection'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['activesection'].errors.required">
+              activesection is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="address">address:</label>
+          <input name="address" id="address" #address [value]=address2 class="form-control col-md-8" [(ngModel)]="address2"
+                 formControlName="address" />
+          <div *ngIf="angForm.controls['address'].invalid && (angForm.controls['address'].dirty || angForm.controls['address'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['address'].errors.required">
+              address is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="fatherName">fatherName:</label>
+          <input name="fatherName" id="fatherName" #fatherName [value]=fatherName2 class="form-control col-md-8" [(ngModel)]="fatherName2"
+                 formControlName="fatherName" />
+          <div *ngIf="angForm.controls['fatherName'].invalid && (angForm.controls['fatherName'].dirty || angForm.controls['fatherName'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['fatherName'].errors.required">
+              fatherName is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="nationalId">nationalId:</label>
+          <input name="nationalId" id="nationalId" #nationalId [value]=nationalId2 class="form-control col-md-8" [(ngModel)]="nationalId2"
+                 formControlName="nationalId" />
+          <div *ngIf="angForm.controls['nationalId'].invalid && (angForm.controls['nationalId'].dirty || angForm.controls['nationalId'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['nationalId'].errors.required">
+              national Id is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="joindate">joindate:</label>
+          <input type="date" name="joindate" id="joindate" #joindate [value]=joindate2 class="form-control col-md-8" [(ngModel)]="joindate2" formControlName="joindate" />
+          <div *ngIf="angForm.controls['joindate'].invalid && (angForm.controls['joindate'].dirty || angForm.controls['joindate'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['joindate'].errors.required">
+              joindate is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-inline">
+          <label class="image-upload-container btn btn-bwm col-md-4 text-left">
+            <span>Select Image</span>
+          </label>
+
+          <input type="file" name="picture" id="picture" (change)="onFileChanged($event)" class="form-control col-md-8" formControlName="picture" />
+          <br />
+          <div *ngIf="angForm.controls['picture'].invalid && (angForm.controls['picture'].dirty || angForm.controls['picture'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['picture'].errors.required">
+              picture is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="isActive">is Active:</label>
+          <input type="checkbox" name="isActive" id="isActive" #isActive [value]=isActive2 class="form-control col-md-8" [(ngModel)]="isActive2" formControlName="isActive" />
+          <div *ngIf="angForm.controls['isActive'].invalid && (angForm.controls['isActive'].dirty || angForm.controls['isActive'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['isActive'].errors.required">
+              isActive is required.
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" (click)="addItems(employeeid.value, employeeNo.value,name.value,permanentsectionid.value,activesection.value,address.value,fatherName.value,nationalId.value,joindate.value,'',isActive.value)" class="btn-primary btn mr-3">Add</button>
+        <button type="submit" (click)="updateItems(employeeid, employeeNo,name,deptid,permanentsectionid,activesection,address,fatherName,nationalId,joindate,picture,isActive)" class="btn btn-info mr-3">Update</button>
+        <button type="button" (click)="deleteItems()" class="btn btn-success mr-3">Delete</button>
+      </div>
+    </div>
+
+  </form>
+
+
+
+
+
+  <table class="table table-condensed">
+    <tr>
+      <th>SL No</th>
+      <th>Employee Id</th>
+      <th>Employee No:</th>
+      <th>Employee Name</th>
+      <th>Permanent Section</th>
+      <th>Address</th>
+      <th>Father Name</th>
+      <th>National Id</th>
+      <th>Joindate</th>
+      <th>Picture</th>
+      <th>Active Section</th>
+      <th>Is Active</th>
+
+    </tr>
+    <tr *ngFor="let employee of employees let i=index" (click)="show(i,employee.employeeid,employee.employeeNo,employee.name,employee.permanentsectionid,employee.activesection,employee.address,employee.fatherName,employee.nationalId,employee.joindate,employee.picture,employee.isActive)">
+      <td>
+        {{i+1}}
+      </td>
+      <td> {{employee.employeeid}}</td>
+      <td> {{employee.employeeNo}}</td>
+      <td> {{employee.name}}</td>
+      <td> {{employee.permanentsectionid}}</td>
+      <td> {{employee.address}}</td>
+      <td> {{employee.fatherName}}</td>
+      <td> {{employee.nationalId}}</td>
+      <td> {{employee.joindate|date}}</td>
+      <td><img width="100" src="/uploads/{{employee.picture}}" /></td>
+      <td> {{employee.activesection}}</td>
+      <td> {{employee.isActive}}</td>
+
+    </tr>
+  </table>
+  <button type="button" (click)="saveAll()" class="btn-primary btn mr-3">Save</button>
+
+  <button type="button" (click)="deleteAll()" class="btn btn-success mr-3">Drop</button>
+
+</div>
+
+
+
+
+
+
+<!--<div class="row">
+  
+</div>-->

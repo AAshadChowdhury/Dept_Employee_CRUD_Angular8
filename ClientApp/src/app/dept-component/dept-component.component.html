@@ -1,0 +1,20 @@
+<p>dept-component works!</p>
+<div class="card">
+  <div class="card-header">
+    Dept and Total Items:
+  </div>
+  <!--@foreach (var a in Model)
+  {
+  <div class="card-body">
+    @Html.ActionLink(@a.deptname + "- (Products: " + @a.count + ")", "mainajs", new { sid = @a.deptid })
+
+  </div>
+  }-->
+  <div *ngFor="let item of items let i=index" class="card-body">
+    <a href="https://localhost:44346?deptid={{item.deptid}}">{{item.deptid}} ({{item.deptname}}) </a>
+  </div>
+  <div class="card-footer">
+    <button type="button" class="btn btn-primary" id="addnew">Add New</button>
+  </div>
+ 
+</div>

@@ -1,0 +1,73 @@
+<p>dept-items-component works!</p>
+<p>dept-items-component works!</p>
+<h2>example-app-component works!</h2>
+<div style="text-align:center">
+  <h1>
+    Items CRUD in Angular6!
+  </h1>
+</div>
+<form class="ui large form segment">
+  <h3 class="ui header">Add a Link</h3>
+  <div class="field">
+    <label for="itemcode">ItemCode:</label>
+    <input name="itemcode" id="itemcode" #itemcode [value]=itemcode2 />
+  </div>
+  <div class="field">
+    <label for="itemname">Item Name:</label>
+    <input name="itemname" id="itemname" #itemname [value]=itemname2 />
+  </div>
+  <div class="field">
+    <label for="deptid">Dept Id:</label>
+    <input name="deptid" id="deptid" #deptid [value]=deptid2 />
+  </div>
+  <div class="field">
+    <label for="cost">Cost:</label>
+    <input name="cost" id="cost" #cost [value]=cost2 />
+  </div>
+  <div class="field">
+    <label for="rate">Sell:</label>
+    <input name="rate" id="rate" #rate [value]=rate2 />
+  </div>
+  <div class="field">
+    <label for="date">Date:</label>
+    <input type="date" name="date" id="date" #date [value]=date2 />
+  </div>
+  <div class="field">
+    <label class="image-upload-container btn btn-bwm">
+      <span>Select Image</span>
+      <input type="file" name="picture" id="picture" (change)="onFileChanged($event)" />
+      <br />
+
+    </label>
+  </div>
+  <button type="button" (click)="addItems(itemcode.value, itemname.value,deptid.value,cost.value,rate.value,date.value,'')">Add</button>
+  <button type="button" (click)="updateItems(itemcode, itemname,deptid,cost,rate,date)">Update</button>
+  <button type="button" (click)="deleteItems()">Delete</button>
+</form>
+<hr />
+<table border="1px">
+  <tr>
+    <th>SL No</th>
+    <th>Item Code</th>
+    <th>Item Name</th>
+    <th>Dept Id</th>
+    <th>Cost</th>
+    <th>Sell</th>
+    <th>Date</th>
+    <th>Picture</th>
+
+  </tr>
+  <tr *ngFor="let item of items let i=index" (click)="show(i,item.itemcode,item.itemname, item.deptid,item.cost,item.rate,item.date,item.picture)">
+    <td width="200">
+      {{i+1}}
+    </td>
+    <td width="200"> {{item.itemcode}}</td>
+    <td width="200"> {{item.itemname}}</td>
+    <td width="200"> {{item.deptid}}</td>
+    <td width="200"> {{item.cost}}</td>
+    <td width="200"> {{item.rate}}</td>
+    <td width="200"> {{item.date| date:'dd/MM/yyyy'}}</td>
+    <td width="200"><img width="100" src="/uploads/{{item.picture}}" /></td>
+
+  </tr>
+</table>

@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Index";
+
+}
+<h1>Index</h1>
+<link href="~/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/microsoft-signalr/signalr.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var IWannaChat = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+        IWannaChat.on("addMessage", function (message) {
+            $('#listMessages').append('<li>' + message + '</li>');
+        });
+        IWannaChat.on("addChatMessage", function (message) {
+            $('#listMessagestogroup').append('<li>' + message + '</li>');
+        });
+        IWannaChat.on("allGroups", function (message) {
+            $('#groups').append('<li id="gp">' + message + '</li>');
+        });
+        $("body div main form div div div div").on("click", "li#gp", function () {
+            gp = $(this).html();
+            IWannaChat.invoke("addGroup", gp).catch(function (err) {
+                return console.error(err.toString());
+            });
+            $("#txtGroup").val(gp);
+        });
+        $("#SendMessage").click(function () {
+            var msg = "<b>" + $('#txtUser').val() + " : </b>" + $('#txtMessage').val();
+            IWannaChat.invoke("Send1", msg).catch(function (err) {
+                return console.error(err.toString());
+            });
+        });
+        IWannaChat.start().then(function () {
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+        $("#SendMessagetogroup").click(function () {
+            var msg = "<b>" + $('#txtUser').val() + " sended a message to Group :" + $("#txtGroup").val() + ": </b>" + $('#txtMessagetogroup').val();
+            IWannaChat.invoke("SendToGroup", $('#txtGroup').val(), msg).catch(function (err) {
+                return console.error(err.toString());
+            });
+        });
+        $("#UserAdd").click(function () {
+            var msg = "<b>New User added to group " + $('#txtGroup').val() + ". User is: </b>" + $('#txtUser').val();
+            IWannaChat.invoke("Send1", msg).catch(function (err) {
+                return console.error(err.toString());
+            });
+        });
+        $("#groupAdd").click(function () {
+            gp = $('#txtGroup').val();
+            var msg = "<b>New Group added : " + $('#txtGroup').val();// + ". User is: </b>" + $('#txtUser').val();
+            IWannaChat.invoke("addGroup", gp).catch(function (err) {
+                return console.error("addGroup:" + err.toString());
+            });
+            IWannaChat.invoke("Send1", msg).catch(function (err) {
+                return console.error("send1:" + err.toString());
+            });
+            IWannaChat.invoke("getAllGroups", gp).catch(function (err) {
+                return console.error("getallgroup:" + err.toString());
+            });
+        });
+        $('#btnUploadFile').click(function () {
+            var formData = new FormData();
+            formData.append('files', $('#fileUpload')[0].files[0]); // myFile is the input type="file" control
+            fn = $("#fileUpload").val().split('\\').pop();
+            var ajaxRequest = $.ajax({
+                type: "POST",
+                url: "/api/UploadApics/",
+                contentType: false,
+                processData: false,
+                data: formData
+            });
+            ajaxRequest.done(function (xhr, textStatus) {
+
+                var msg = "<b>" + $('#txtUser').val() + "</b> sent a picture:<br/><img src='/uploads/" + fn + "' width='100px'/>";
+                IWannaChat.invoke("Send1", msg).catch(function (err) {
+                    return console.error("send1:" + err.toString());
+                });
+            });
+        });
+    });
+</script>
+<form id="form1" runat="server" enctype="multipart/form-data">
+    <div>
+        <div class="offset-3">
+            <div class="form-group">
+                <label for="group" class="control-label col-md-2">Group: </label>
+                <input type="text" id="txtGroup" style="width:398px;" />
+                <input type="button" class="btn btn-success" id="groupAdd" value="Add Group" style="margin-left:173px; width:151px;" />
+                <div id="groups">Groups are Here</div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="control-label col-md-2">Name: </label>
+                <input type="text" id="txtUser" style="width:398px;" />
+                <input type="button" class="btn btn-success" id="UserAdd" value="Add User" style="margin-left:173px; width:151px;" />
+                <hr />
+<textarea id="txtMessagetogroup" style="width:398px;"></textarea><br />
+                <input type="button" class="btn btn-success" id="SendMessagetogroup" value="Send SMS" style="margin-left:173px; width:151px;" />
+                <ul class="text-center" id="listMessagestogroup"></ul>
+            </div>
+            <div class="form-group">
+                <label for="message" class="control-label col-md-2">Message: </label>
+<textarea id="txtMessage" style="width:398px;"></textarea><br />
+                <input type="button" class="btn btn-success" id="SendMessage" value="Send SMS" style="margin-left:173px; width:151px;" />
+            </div>
+            <div class="form-group">
+                <label for="attachment" class="control-label col-md-2">Attachment: </label>
+                <input id="fileUpload" type="file" class="btn btn-warning" />
+                <input id="btnUploadFile" type="button" class="btn btn-primary" value="Send File" />
+            </div>
+        </div>
+        <hr />
+        <ul class="text-center" id="listMessages"></ul>
+    </div>
+</form>

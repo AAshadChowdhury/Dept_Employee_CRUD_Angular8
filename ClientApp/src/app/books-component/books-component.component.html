@@ -1,0 +1,160 @@
+<h1>books-component works!</h1>
+<style>
+  .form-group label {
+    justify-content: left !important;
+  }
+</style>
+<div class="row justify-content-center align-items-center ml-2">
+  <form [formGroup]="angForm" novalidate>
+    <h1>
+      Books CRUD in Angular6!
+    </h1>
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Category Table</h2>
+        <div class="form-group">
+          <label for="catid">Category Id</label>
+          <input id="catid" name="catid" #catid [value]=catid2 class="form-control" (input)="categorychange()" [(ngModel)]="catid2" formControlName="catid" placeholder="Category Id" />
+          <div *ngIf="angForm.controls['catid'].invalid && (angForm.controls['catid'].dirty || angForm.controls['catid'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['catid'].errors.required">
+              category id is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="catname">Category Name</label>
+          <input id="catname" name="catname" #catname [value]=catname2 class="form-control" [(ngModel)]="catname2" formControlName="catname" />
+          <div *ngIf="angForm.controls['catname'].invalid && (angForm.controls['catname'].dirty || angForm.controls['catname'].touched)" class="alert-danger">
+            <div *ngIf="angForm.controls['catname'].errors.required">categoryname is required.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location </label>
+          <input id="location" name="Location" #location [value]=location2 class="form-control" [(ngModel)]="location2" formControlName="location" />
+          <div *ngIf="angForm.controls['location'].invalid && (angForm.controls['location'].dirty || angForm.controls['location'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['location'].errors.required">
+              location is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="bookcode">Book Code:</label>
+          <input name="bookcode" id="bookcode" #bookcode [value]=bookcode2 class="form-control col-md-8" [(ngModel)]="bookcode2" formControlName="bookcode" />
+
+          <div *ngIf="angForm.controls['bookcode'].invalid && (angForm.controls['bookcode'].dirty || angForm.controls['bookcode'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['bookcode'].errors.required">
+              book code is required.
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="bookname">book Name:</label>
+          <input name="bookname" id="bookname" #bookname [value]=bookname2 class="form-control col-md-8" [(ngModel)]=bookname2 formControlName="bookname" />
+          <div *ngIf="angForm.controls['bookname'].invalid && (angForm.controls['bookname'].dirty || angForm.controls['bookname'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['bookname'].errors.required">
+              bookname is required.
+            </div>
+          </div>
+        </div>
+        <!--<div class="form-group form-inline">
+    <label class="col-md-4 text-left" for="deptid">Dept Id:</label>
+    <input name="deptid" id="deptid" #deptid [value]=deptid2 class="form-control col-md-8" (input)="deptchange()" [(ngModel)]="deptid2" />
+  </div>-->
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="cost">Cost:</label>
+          <input name="cost" id="cost" #cost [value]=cost2 class="form-control col-md-8" [(ngModel)]="cost2" formControlName="cost" />
+          <div *ngIf="angForm.controls['cost'].invalid && (angForm.controls['cost'].dirty || angForm.controls['cost'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['cost'].errors.required">
+              cost is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="rate">Sell:</label>
+          <input name="rate" id="rate" #rate [value]=rate2 class="form-control col-md-8" [(ngModel)]="rate2"
+                 formControlName="rate" />
+          <div *ngIf="angForm.controls['rate'].invalid && (angForm.controls['rate'].dirty || angForm.controls['rate'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['rate'].errors.required">
+              rate is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="purchasedate">Purchasedate Date:</label>
+          <input type="date" name="date" id="purchasedate" #purchasedate [value]=purchasedate2 class="form-control col-md-8" [(ngModel)]="purchasedate2" formControlName="purchasedate" />
+          <div *ngIf="angForm.controls['purchasedate'].invalid && (angForm.controls['purchasedate'].dirty || angForm.controls['purchasedate'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['purchasedate'].errors.required">
+              purchase date is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-inline">
+          <label class="col-md-4 text-left" for="instock">instock:</label>
+          <input type="checkbox" name="instock" id="instock" #instock [value]=instock2 class="form-control col-md-8" [(ngModel)]="instock2" formControlName="instock" />
+          <div *ngIf="angForm.controls['instock'].invalid && (angForm.controls['instock'].dirty || angForm.controls['instock'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['instock'].errors.required">
+              instock is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-inline">
+          <label class="image-upload-container btn btn-bwm col-md-4 text-left">
+            <span>Select Image</span>
+          </label>
+          <input type="file" name="picture" id="picture" (change)="onFileChanged($event)" class="form-control col-md-8" formControlName="picture" />
+          <br />
+          <div *ngIf="angForm.controls['picture'].invalid && (angForm.controls['picture'].dirty || angForm.controls['picture'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['picture'].errors.required">
+              picture is required.
+            </div>
+          </div>
+        </div>
+
+
+        <button type="submit" (click)="addItems(bookcode.value, bookname.value,catid.value,cost.value,rate.value,instock.value,purchasedate.value,'')" class="btn-primary btn mr-3">Add</button>
+        <button type="submit" (click)="updateItems(bookcode, bookname,catid,cost,rate,instock,purchasedate)" class="btn btn-info mr-3">Update</button>
+        <button type="button" (click)="deleteItems()" class="btn btn-success mr-3">Delete</button>
+      </div>
+    </div>
+
+</form>
+
+</div>
+
+<div class="row">
+  <table class="table table-condensed">
+    <tr>
+      <th>SL No</th>
+      <th>Book Code</th>
+      <th>Book Name</th>
+      <th>Cost</th>
+      <th>Sell</th>
+      <th>In Stock</th>
+      <th>Purchase Date</th>
+      <th>Picture</th>
+
+    </tr>
+    <tr *ngFor="let book of books let i=index" (click)="show(i,book.bookcode,book.bookname, book.catid,book.cost,book.rate,book.instock,book.purchasedate,book.picture)">
+      <td>
+        {{i+1}}
+      </td>
+      <td> {{book.bookcode}}</td>
+      <td> {{book.bookname}}</td>
+      <td> {{book.cost}}</td>
+      <td> {{book.rate}}</td>
+      <td> {{book.instock}}</td>
+      <td> {{book.purchasedate}}</td>
+      <td><img width="100" src="/uploads/{{book.picture}}" /></td>
+
+    </tr>
+  </table>
+  <button type="button" (click)="saveAll()" class="btn-primary btn mr-3">Save</button>
+
+  <button type="button" (click)="deleteAll()" class="btn btn-success mr-3">Drop</button>
+</div>
